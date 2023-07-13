@@ -16,6 +16,9 @@ public class Comment extends Timestamped{
     @Column(name = "comment_id")
     private Long id;
 
+    @Column
+    private String username;
+
     @Column(nullable = false)
     private String comment;
 
@@ -29,6 +32,7 @@ public class Comment extends Timestamped{
 
     public Comment(CommentRequestDto requestDto, User user, Post post) {
         this.comment = requestDto.getComment();
+        this.username = user.getUsername();
         this.user = user;
         this.post = post;
     }

@@ -25,8 +25,8 @@ public class User {
     private UserRoleEnum role;
 
     public User(String username, String password, UserRoleEnum role) {
-        this.username = getUsername();
-        this.password = getPassword();
-        this.role = getRole();
+        this.username = username;
+        this.password = password;
+        this.role = role;
     }
 }

@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.swing.*;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -28,8 +30,8 @@ public class UserService {
         String adminToken = requestDto.getAdminToken();
         UserRoleEnum role = UserRoleEnum.USER;
 
-        if (role != requestDto.getRole()) {
-            if (adminToken != requestDto.getAdminToken()) {
+        if (!requestDto.getRole().equals(role)) {
+            if (!adminToken.equals(ADMIN_TOKEN)) {
                 throw new IllegalArgumentException("유효한 관리자 토큰이 아닙니다.");
             } role = UserRoleEnum.ADMIN;
         }
@@ -47,8 +49,9 @@ public class UserService {
                 () -> new IllegalArgumentException("등록된 아이디가 없습니다.")
         );
 
-        if (!passwordEncoder.matches(requestDto.getPassword(), password)) {
+        if (passwordEncoder.matches(requestDto.getPassword(), password)) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+
         }
     }
 }

@@ -17,24 +17,26 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/{postId}/comment")
-    public CommentResponseDto createComment(@PathVariable Long id, @RequestBody CommentRequestDto requestDto,
+    public CommentResponseDto createComment(@PathVariable Long postId, @RequestBody CommentRequestDto requestDto,
                                             @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
-        return commentService.createComment(id, requestDto, userDetails.getUser());
+        return commentService.createComment(postId, requestDto, userDetails.getUser());
     }
 
-    @PutMapping("/{postId}/comment/{commentId}")
-    public CommentResponseDto updateComment(@PathVariable Long postId, @PathVariable Long commentId,
+    @PutMapping("/comment/{commentId}")
+    public CommentResponseDto updateComment(@PathVariable Long commentId,
                                             @RequestBody CommentRequestDto requestDto,
                                             @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return commentService.updateComment(postId, commentId, requestDto, userDetails.getUser());
+        return commentService.updateComment(commentId, requestDto, userDetails.getUser());
     }
 
-    @DeleteMapping("/{postId}/comment/{commentId}")
-    public StatusResponseDto deleteComment(@PathVariable Long postId, @PathVariable Long commentId,
-                                           @RequestBody CommentRequestDto requestDto,
-                                           @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        commentService.deleteComment(postId, commentId, requestDto, userDetails.getUser());
+    @DeleteMapping("/comment/{commentId}")
+    public StatusResponseDto deleteComment(@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
+
+        commentService.deleteComment(commentId, userDetails.getUser());
+
+
 
         return new StatusResponseDto("댓글 삭제가 완료되었습니다.", HttpStatus.OK.value());
     }

@@ -18,8 +18,8 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
 
-    public CommentResponseDto createComment(Long id, CommentRequestDto requestDto, User user) {
-        Post post = findByPost(requestDto.getPostId());
+    public CommentResponseDto createComment(Long postId, CommentRequestDto requestDto, User user) {
+        Post post = findByPost(postId);
         Comment comment = new Comment(requestDto, user, post);
 
         commentRepository.save(comment);
@@ -28,13 +28,10 @@ public class CommentService {
     }
 
     @Transactional
-    public CommentResponseDto updateComment(Long postId, Long commentId, CommentRequestDto requestDto, User user) {
-        Post post = findByPost(postId);
-        Comment comment = new Comment(requestDto, user, post);
+    public CommentResponseDto updateComment(Long commentId, CommentRequestDto requestDto, User user) {
+        Comment comment = findByComment(commentId);
 
-        findByComment(commentId);
-
-        if (!(user.getRole().equals(UserRoleEnum.ADMIN) || comment.getUser().equals(user))) {
+        if (!(user.getRole().equals(UserRoleEnum.ADMIN) || comment.getUsername().equals(user.getUsername()))) {
             throw new IllegalArgumentException("수정할 권한이 없습니다.");
         }
 
@@ -43,18 +40,14 @@ public class CommentService {
         return new CommentResponseDto(comment);
     }
 
-    public void deleteComment(Long postId, Long commentId, CommentRequestDto requestDto, User user) {
-        Post post = findByPost(postId);
-        Comment comment = new Comment(requestDto, user, post);
+    public void deleteComment(Long commentId, User user) {
+        Comment comment = findByComment(commentId);
 
-        findByComment(commentId);
-
-        if (!(user.getRole().equals(UserRoleEnum.ADMIN) || comment.getUser().equals(user))) {
+        if (!(user.getRole().equals(UserRoleEnum.ADMIN) || comment.getUsername().equals(user.getUsername()))) {
             throw new IllegalArgumentException("삭제할 권한이 없습니다.");
         }
 
         commentRepository.delete(comment);
-
     }
 
     private Post findByPost(Long postId) {
@@ -63,8 +56,8 @@ public class CommentService {
         );
     }
 
-    private void findByComment(Long commentId) {
-        commentRepository.findById(commentId).orElseThrow(
+    private Comment findByComment(Long commentId) {
+        return commentRepository.findById(commentId).orElseThrow(
                 () -> new IllegalArgumentException("댓글이 존재하지 않습니다.")
         );
     }

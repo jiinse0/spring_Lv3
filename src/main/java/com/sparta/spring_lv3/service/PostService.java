@@ -43,7 +43,7 @@ public class PostService {
     public PostResponseDto updatePost(Long id, PostRequestDto requestDto, User user) {
         Post post = findByPost(id);
 
-        if (!(post.getUser().equals(user) || user.getRole().equals(UserRoleEnum.ADMIN))) {
+        if (!(post.getUsername().equals(user.getUsername()) || user.getRole().equals(UserRoleEnum.ADMIN))) {
             throw new IllegalArgumentException("수정할 권한이 없습니다.");
         }
 
@@ -55,7 +55,7 @@ public class PostService {
     public void deletePost(User user, Long id) {
         Post post = findByPost(id);
 
-        if (!(post.getUser().equals(user) || user.getRole().equals(UserRoleEnum.ADMIN))) {
+        if (!(post.getUsername().equals(user.getUsername()) || user.getRole().equals(UserRoleEnum.ADMIN))) {
             throw new IllegalArgumentException("삭제할 권한이 없습니다.");
         }
     }

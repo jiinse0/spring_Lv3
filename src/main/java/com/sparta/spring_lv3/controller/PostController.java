@@ -3,7 +3,6 @@ package com.sparta.spring_lv3.controller;
 import com.sparta.spring_lv3.dto.PostRequestDto;
 import com.sparta.spring_lv3.dto.PostResponseDto;
 import com.sparta.spring_lv3.dto.StatusResponseDto;
-import com.sparta.spring_lv3.entity.Post;
 import com.sparta.spring_lv3.security.UserDetailsImpl;
 import com.sparta.spring_lv3.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class PostController {
-    private PostService postService;
+
+    private final PostService postService;
 
     @PostMapping("/post")
     public PostResponseDto createPost(@RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -47,9 +47,9 @@ public class PostController {
 
         try {
             postService.deletePost(userDetails.getUser(), id);
-            return new StatusResponseDto("게시글 삭제 권한이 없습니다.", HttpStatus.BAD_REQUEST.value());
+            return new StatusResponseDto("게시글 삭제가 완료되었습니다.", HttpStatus.BAD_REQUEST.value());
         } catch (IllegalArgumentException e) {
-            return new StatusResponseDto("게시글 삭제가 완료되었습니다.", HttpStatus.OK.value());
+            return new StatusResponseDto("게시글 삭제권한이 없습니다.", HttpStatus.OK.value());
         }
     }
 }
