@@ -21,7 +21,7 @@ https://documenter.getpostman.com/view/27971774/2s946e9taT
 <br>
 <br>
 
-<h2>👉🏻 추가 요구사항<h2/>
+<h2>👉🏻 추가 요구사항</h2>
   
 1. 회원 가입 API
     - password는  `최소 8자 이상, 15자 이하이며 알파벳 대소문자(a~z, A~Z), 숫자(0~9), 특수문자`로 구성되어야 한다.
