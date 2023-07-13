@@ -4,7 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class CommentRequestDto {
-    private Long postId;
     private Long commentId;
     private String comment;
 }
