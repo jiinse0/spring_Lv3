@@ -3,7 +3,6 @@ package com.sparta.spring_lv3.controller;
 import com.sparta.spring_lv3.dto.PostRequestDto;
 import com.sparta.spring_lv3.dto.PostResponseDto;
 import com.sparta.spring_lv3.dto.StatusResponseDto;
-import com.sparta.spring_lv3.entity.Post;
 import com.sparta.spring_lv3.security.UserDetailsImpl;
 import com.sparta.spring_lv3.service.PostService;
 import lombok.RequiredArgsConstructor;
