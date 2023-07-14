@@ -1,8 +1,13 @@
 package com.sparta.spring_lv3.jwt;
 
-import java.io.IOException;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.spring_lv3.dto.StatusResponseDto;
+import com.sparta.spring_lv3.security.UserDetailsServiceImpl;
+import io.jsonwebtoken.Claims;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -11,14 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.spring_lv3.security.UserDetailsServiceImpl;
-import io.jsonwebtoken.Claims;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
 
 /*
  * JWT 토큰을 사용하여 인증 및 권한 부여를 수행하는 필터
@@ -26,7 +24,6 @@ import lombok.extern.slf4j.Slf4j;
  * 필터 체인에서 이 필터를 등록하여 인증 및 권한 부여를 처리
  * 클라이언트로 부터 요청을 받아들이고, 토큰을 검증한 후 인증 처리를 수행한 뒤 다음 필터로 요청을 전달
  */
-@Slf4j(topic = "JWT 검증 및 인가")
 public class JwtAuthorizationFilter extends OncePerRequestFilter { // OncePerRequestFilter : 요청 하나당 한번씩 수행하는 필터
 
     private final JwtUtil jwtUtil;

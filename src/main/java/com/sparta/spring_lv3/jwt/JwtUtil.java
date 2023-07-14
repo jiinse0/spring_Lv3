@@ -1,35 +1,26 @@
 package com.sparta.spring_lv3.jwt;
 
-import java.security.Key;
-import java.util.Base64;
-import java.util.Date;
-
 import com.sparta.spring_lv3.entity.UserRoleEnum;
-import lombok.extern.slf4j.Slf4j;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
-import io.jsonwebtoken.UnsupportedJwtException;
-import io.jsonwebtoken.security.Keys;
-import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
+import java.security.Key;
+import java.util.Base64;
+import java.util.Date;
 
 /*
  * JWT(JSON Web Token)의 생성, 검증 및 해석과 관련된 유틸리티 클래스
  * 토큰을 생성하고 해석하여 사용자를 인증
  * 토큰의 생성, 서명 검증, 페이로드 해석 등을 처리
  */
-@Slf4j(topic = "JwtUtil")
 @Component
 @RequiredArgsConstructor
 public class JwtUtil { // JWT (JSON Web Token)을 생성하고 검증하는 클래스
