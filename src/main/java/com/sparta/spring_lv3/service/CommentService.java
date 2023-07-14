@@ -31,9 +31,7 @@ public class CommentService {
     public CommentResponseDto updateComment(Long commentId, CommentRequestDto requestDto, User user) {
         Comment comment = findByComment(commentId);
 
-        if (!(user.getRole().equals(UserRoleEnum.ADMIN) || comment.getUsername().equals(user.getUsername()))) {
-            throw new IllegalArgumentException("수정할 권한이 없습니다.");
-        }
+        commentAuthority(user, comment);
 
         comment.updateComment(requestDto);
 
@@ -43,9 +41,7 @@ public class CommentService {
     public void deleteComment(Long commentId, User user) {
         Comment comment = findByComment(commentId);
 
-        if (!(user.getRole().equals(UserRoleEnum.ADMIN) || comment.getUsername().equals(user.getUsername()))) {
-            throw new IllegalArgumentException("삭제할 권한이 없습니다.");
-        }
+        commentAuthority(user, comment);
 
         commentRepository.delete(comment);
     }
@@ -60,5 +56,11 @@ public class CommentService {
         return commentRepository.findById(commentId).orElseThrow(
                 () -> new IllegalArgumentException("댓글이 존재하지 않습니다.")
         );
+    }
+
+    private void commentAuthority(User user, Comment comment) {
+        if (!(user.getRole().equals(UserRoleEnum.ADMIN) || comment.getUsername().equals(user.getUsername()))) {
+            throw new IllegalArgumentException("권한이 없습니다.");
+        }
     }
 }
