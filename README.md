@@ -1,16 +1,23 @@
-<h2>👉🏻 Diagrams<h2/>
+## 👉🏻 Diagrams
 <img width="461" alt="image" src="https://github.com/jiinse0/spring_Lv3/assets/130745679/6cbf63ee-e32f-46c2-b566-241b5b5ed6f7">
 
 <br>
 <br>
 
-<h2>👉🏻 Postman<h2/>
+## 👉🏻 ERD
+
+![](https://velog.velcdn.com/images/jee_ji/post/43b41b1d-c174-4e7b-b2bf-36f7165d9ef8/image.png)
+
+<br>
+<br>
+
+## 👉🏻 Postman
 https://documenter.getpostman.com/view/27971774/2s946e9taT
 
 <br>
 <br>
 
-<h2>👉🏻 API 명세<h2/>
+## 👉🏻 API 명세
 
 <img width="822" alt="스크린샷 2023-07-13 235316" src="https://github.com/jiinse0/spring_Lv3/assets/130745679/7086fdea-25cb-43d2-b9bb-3584f042e24e">
 
@@ -21,7 +28,7 @@ https://documenter.getpostman.com/view/27971774/2s946e9taT
 <br>
 <br>
 
-<h2>👉🏻 추가 요구사항</h2>
+## 👉🏻 추가 요구사항
   
 1. 회원 가입 API
     - password는  `최소 8자 이상, 15자 이하이며 알파벳 대소문자(a~z, A~Z), 숫자(0~9), 특수문자`로 구성되어야 한다.
